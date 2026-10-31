@@ -297,6 +297,7 @@ async function pk(){const sv=snap(),L=$("#scope").value==="all"?items.map(x=>x.v
 const PUB=x=>{const{m,pn,...r}=x;return r},slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"item";
 async function save(name,txt,type){const b=txt instanceof Blob?txt:new Blob([txt],{type}),C=window.Capacitor;
  if(C&&C.isNativePlatform&&C.isNativePlatform()){try{const d=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result.split(",")[1]);f.readAsDataURL(b)}),w=await C.Plugins.Filesystem.writeFile({path:name,data:d,directory:"CACHE"});await C.Plugins.Share.share({title:name,url:w.uri});return}catch(e){}}
+ if(window.SellWareNative){try{const d=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result.split(",")[1]);f.readAsDataURL(b)});SellWareNative.saveFile(name,d,b.type||"application/octet-stream");return}catch(e){}}
  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;a.click()}
 const SH=["Handle","Title","Body (HTML)","Vendor","Type","Tags","Published","Option1 Name","Option1 Value","Variant SKU","Variant Grams","Variant Inventory Tracker","Variant Inventory Qty","Variant Inventory Policy","Variant Fulfillment Service","Variant Price","Variant Requires Shipping","Variant Taxable","Variant Barcode","Image Src","Cost per item","Status"];
 const E={
